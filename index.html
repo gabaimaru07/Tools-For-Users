@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plainly — Free Online Tools</title>
+<meta name="description" content="Free online tools: image compressor, PDF merger, QR code generator, word counter, unit converter and password generator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Familjen+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<!-- Tool libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="script.js" defer></script>
+</head>
+<body>
+<header class="bar">
+  <button class="logo" data-page="home">plainly<span>.</span></button>
+  <nav class="nav">
+    <button data-page="home" data-i18n="home"></button>
+    <button data-page="about" data-i18n="about"></button>
+    <button data-page="contact" data-i18n="contact"></button>
+  </nav>
+  <select id="lang" aria-label="Language">
+    <option value="en">EN</option><option value="fr">FR</option><option value="ar">AR</option>
+  </select>
+</header>
+
+<main>
+<!-- HOME -->
+<section id="home" class="view">
+  <div class="hero"><div><h1 data-i18n="heroT"></h1><p data-i18n="heroS"></p></div><div class="scene" aria-hidden="true"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+  <div class="cards"><button class="card" data-page="tool1"><i>🗜️</i><h3 data-i18n="t1"></h3><p data-i18n="d1"></p></button><button class="card" data-page="tool2"><i>📄</i><h3 data-i18n="t2"></h3><p data-i18n="d2"></p></button><button class="card" data-page="tool3"><i>▦</i><h3 data-i18n="t3"></h3><p data-i18n="d3"></p></button><button class="card" data-page="tool4"><i>Aa</i><h3 data-i18n="t4"></h3><p data-i18n="d4"></p></button><button class="card" data-page="tool5"><i>⇄</i><h3 data-i18n="t5"></h3><p data-i18n="d5"></p></button><button class="card" data-page="tool6"><i>🔐</i><h3 data-i18n="t6"></h3><p data-i18n="d6"></p></button></div>
+</section>
+
+<section class="view page toolpage" id="tool1" hidden><button class="back" data-page="home" data-i18n="back"></button><article class="tool">
+      <h2 data-i18n="t1"></h2><p class="lead" data-i18n="d1"></p>
+      <input type="file" id="imgFile" accept="image/*">
+      <label class="row"><span data-i18n="quality"></span><input type="range" id="imgQ" min="5" max="100" value="70"><b id="imgQv">70%</b></label>
+      <p class="info" id="imgInfo"></p>
+      <button class="btn" id="imgDl" disabled data-i18n="download"></button>
+    </article></section>
+<section class="view page toolpage" id="tool2" hidden><button class="back" data-page="home" data-i18n="back"></button><article class="tool">
+      <h2 data-i18n="t2"></h2><p class="lead" data-i18n="d2"></p>
+      <input type="file" id="pdfFiles" accept="application/pdf" multiple>
+      <ul id="pdfList" class="list"></ul>
+      <button class="btn" id="pdfBtn" data-i18n="merge"></button>
+    </article></section>
+<section class="view page toolpage" id="tool3" hidden><button class="back" data-page="home" data-i18n="back"></button><article class="tool">
+      <h2 data-i18n="t3"></h2><p class="lead" data-i18n="d3"></p>
+      <input type="text" id="qrText" data-i18n-ph="phQr">
+      <button class="btn" id="qrBtn" data-i18n="generate"></button>
+      <div id="qrOut" class="qr"></div>
+      <button class="btn ghost" id="qrDl" hidden data-i18n="download"></button>
+    </article></section>
+<section class="view page toolpage" id="tool4" hidden><button class="back" data-page="home" data-i18n="back"></button><article class="tool">
+      <h2 data-i18n="t4"></h2><p class="lead" data-i18n="d4"></p>
+      <textarea id="cText" rows="5" data-i18n-ph="phText"></textarea>
+      <div class="stats">
+        <div><b id="cW">0</b><span data-i18n="words"></span></div>
+        <div><b id="cC">0</b><span data-i18n="chars"></span></div>
+        <div><b id="cS">0</b><span data-i18n="sentences"></span></div>
+      </div>
+    </article></section>
+<section class="view page toolpage" id="tool5" hidden><button class="back" data-page="home" data-i18n="back"></button><article class="tool">
+      <h2 data-i18n="t5"></h2><p class="lead" data-i18n="d5"></p>
+      <select id="cvType"><option value="len" data-i18n="length"></option><option value="wt" data-i18n="weight"></option><option value="tmp" data-i18n="temp"></option></select>
+      <input type="number" id="cvVal" value="1" step="any">
+      <div class="row"><select id="cvFrom"></select><span>→</span><select id="cvTo"></select></div>
+      <p class="result" id="cvRes"></p>
+    </article></section>
+<section class="view page toolpage" id="tool6" hidden><button class="back" data-page="home" data-i18n="back"></button><article class="tool">
+      <h2 data-i18n="t6"></h2><p class="lead" data-i18n="d6"></p>
+      <label class="row"><span data-i18n="pwLen"></span><input type="range" id="pwLen" min="6" max="64" value="16"><b id="pwLenV">16</b></label>
+      <div class="checks">
+        <label><input type="checkbox" id="pwUp" checked><span data-i18n="upper"></span></label>
+        <label><input type="checkbox" id="pwNum" checked><span data-i18n="nums"></span></label>
+        <label><input type="checkbox" id="pwSym" checked><span data-i18n="syms"></span></label>
+      </div>
+      <output id="pwOut" class="pw" dir="ltr"></output>
+      <div class="row"><button class="btn" id="pwGen" data-i18n="generate"></button><button class="btn ghost" id="pwCopy" data-i18n="copy"></button></div>
+    </article></section>
+
+
+<!-- STATIC PAGES -->
+<section id="about" class="view page" hidden><h1 data-i18n="about"></h1><p class="lead" data-i18n="aboutP"></p><h2 data-i18n="ab1h"></h2><p data-i18n="ab1"></p><h2 data-i18n="ab2h"></h2><p data-i18n="ab2"></p><h2 data-i18n="ab3h"></h2><p data-i18n="ab3"></p><h2 data-i18n="ab4h"></h2><p data-i18n="ab4"></p></section>
+<section id="contact" class="view page" hidden>
+  <h1 data-i18n="contact"></h1><p data-i18n="contactP"></p>
+  <form id="contactForm"><input type="hidden" name="_subject" value="New message from Plainly"><input type="hidden" name="_captcha" value="false"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<label><span data-i18n="name"></span><input name="name" required></label>
+<label><span data-i18n="email"></span><input type="email" name="email" required></label>
+<label><span data-i18n="message"></span><textarea name="message" rows="5" required></textarea></label>
+<button class="btn" data-i18n="send"></button><p id="formMsg" role="status"></p></form>
+</section>
+<section id="privacy" class="view page" hidden>
+  <h1 data-i18n="privacy"></h1><p data-i18n="priv1"></p><p data-i18n="priv2"></p>
+</section>
+<section id="terms" class="view page" hidden>
+  <h1 data-i18n="terms"></h1><p data-i18n="terms1"></p><p data-i18n="terms2"></p>
+</section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 plainly</span>
+  <nav>
+    <button data-page="about" data-i18n="about"></button>
+    <button data-page="contact" data-i18n="contact"></button>
+    <button data-page="privacy" data-i18n="privacy"></button>
+    <button data-page="terms" data-i18n="terms"></button>
+  </nav>
+</footer>
+</body>
+</html>
